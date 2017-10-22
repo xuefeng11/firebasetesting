@@ -17,6 +17,7 @@
 		BB23858A1B3DD9640079CD01 /* GroceryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2385891B3DD9640079CD01 /* GroceryItem.swift */; };
 		BB30CD4A1B439B60004B3177 /* OnlineUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB30CD491B439B60004B3177 /* OnlineUsersTableViewController.swift */; };
 		BB7DA5111B42C8100018B530 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7DA5101B42C8100018B530 /* User.swift */; };
+		DC65A9CC1F9D4CD6001C6A59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC65A9CB1F9D4CD6001C6A59 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,8 @@
 		BB2385891B3DD9640079CD01 /* GroceryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryItem.swift; sourceTree = "<group>"; };
 		BB30CD491B439B60004B3177 /* OnlineUsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlineUsersTableViewController.swift; sourceTree = "<group>"; };
 		BB7DA5101B42C8100018B530 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DC65A9CB1F9D4CD6001C6A59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DC65A9CD1F9D5D7E001C6A59 /* Grocr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Grocr.entitlements; sourceTree = "<group>"; };
 		F599D9265F4B40571F432E78 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -61,6 +64,7 @@
 		BB2385531B3DD5AB0079CD01 = {
 			isa = PBXGroup;
 			children = (
+				DC65A9CB1F9D4CD6001C6A59 /* GoogleService-Info.plist */,
 				BB23855E1B3DD5AB0079CD01 /* Grocr */,
 				BB23855D1B3DD5AB0079CD01 /* Products */,
 				5BCB7DE7572521D09DC0AA00 /* Pods */,
@@ -81,6 +85,7 @@
 		BB23855E1B3DD5AB0079CD01 /* Grocr */ = {
 			isa = PBXGroup;
 			children = (
+				DC65A9CD1F9D5D7E001C6A59 /* Grocr.entitlements */,
 				BB2385881B3DD9550079CD01 /* Models */,
 				BB2385811B3DD8310079CD01 /* Controllers */,
 				BB2385821B3DD8490079CD01 /* Layouts */,
@@ -178,6 +183,7 @@
 				TargetAttributes = {
 					BB23855B1B3DD5AB0079CD01 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 65TM239DY7;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -185,7 +191,7 @@
 								enabled = 0;
 							};
 							com.apple.Keychain = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -216,6 +222,7 @@
 			files = (
 				BB2385671B3DD5AB0079CD01 /* Main.storyboard in Resources */,
 				BB23856C1B3DD5AB0079CD01 /* LaunchScreen.xib in Resources */,
+				DC65A9CC1F9D4CD6001C6A59 /* GoogleService-Info.plist in Resources */,
 				BB2385691B3DD5AB0079CD01 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,8 +401,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Grocr/Grocr.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 65TM239DY7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Grocr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -417,8 +426,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Grocr/Grocr.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 65TM239DY7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Grocr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

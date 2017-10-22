@@ -31,6 +31,7 @@ class LoginViewController: UIViewController {
   @IBOutlet weak var textFieldLoginEmail: UITextField!
   @IBOutlet weak var textFieldLoginPassword: UITextField!
   
+  
   // MARK: Actions
   @IBAction func loginDidTouch(_ sender: AnyObject) {
     performSegue(withIdentifier: loginToList, sender: nil)
@@ -40,6 +41,9 @@ class LoginViewController: UIViewController {
     let alert = UIAlertController(title: "Register",
                                   message: "Register",
                                   preferredStyle: .alert)
+    
+    
+    
     
     let saveAction = UIAlertAction(title: "Save",
                                    style: .default) { action in

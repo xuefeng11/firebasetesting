@@ -26,7 +26,7 @@ class GroceryListTableViewController: UITableViewController {
 
   // MARK: Constants
   let listToUsers = "ListToUsers"
-  
+  let ref = FIRDatabase.database().reference(withPath: "grocery-items")
   // MARK: Properties 
   var items: [GroceryItem] = []
   var user: User!
@@ -36,6 +36,35 @@ class GroceryListTableViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    // 1
+    ref.observe(.value, with: { snapshot in
+      // 2
+      var newItems: [GroceryItem] = []
+      
+      // 3
+      for item in snapshot.children {
+        // 4
+        let groceryItem = GroceryItem(snapshot: item as! FIRDataSnapshot)
+        newItems.append(groceryItem)
+      }
+      
+      // 5
+      self.items = newItems
+      self.tableView.reloadData()
+    })
+    
+    
+    ref.queryOrdered(byChild: "completed").observe(.value, with: { snapshot in
+      var newItems: [GroceryItem] = []
+      
+      for item in snapshot.children {
+        let groceryItem = GroceryItem(snapshot: item as! FIRDataSnapshot)
+        newItems.append(groceryItem)
+      }
+      
+      self.items = newItems
+      self.tableView.reloadData()
+    })
     
     tableView.allowsMultipleSelectionDuringEditing = false
     
@@ -73,20 +102,26 @@ class GroceryListTableViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
-      items.remove(at: indexPath.row)
-      tableView.reloadData()
+      let groceryItem = items[indexPath.row]
+      groceryItem.ref?.removeValue()
     }
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // 1
     guard let cell = tableView.cellForRow(at: indexPath) else { return }
-    var groceryItem = items[indexPath.row]
+    // 2
+    let groceryItem = items[indexPath.row]
+    // 3
     let toggledCompletion = !groceryItem.completed
-    
+    // 4
     toggleCellCheckbox(cell, isCompleted: toggledCompletion)
-    groceryItem.completed = toggledCompletion
-    tableView.reloadData()
+    // 5
+    groceryItem.ref?.updateChildValues([
+      "completed": toggledCompletion
+      ])
   }
+  
   
   func toggleCellCheckbox(_ cell: UITableViewCell, isCompleted: Bool) {
     if !isCompleted {
@@ -108,13 +143,20 @@ class GroceryListTableViewController: UITableViewController {
                                   preferredStyle: .alert)
     
     let saveAction = UIAlertAction(title: "Save",
-                                   style: .default) { action in
-      let textField = alert.textFields![0] 
-      let groceryItem = GroceryItem(name: textField.text!,
-                                    addedByUser: self.user.email,
-                                    completed: false)
-      self.items.append(groceryItem)
-      self.tableView.reloadData()
+                                   style: .default) { _ in
+                                    // 1
+                                    guard let textField = alert.textFields?.first,
+                                      let text = textField.text else { return }
+                                    
+                                    // 2
+                                    let groceryItem = GroceryItem(name: text,
+                                                                  addedByUser: self.user.email,
+                                                                  completed: false)
+                                    // 3
+                                    let groceryItemRef = self.ref.child(text.lowercased())
+                                    
+                                    // 4
+                                    groceryItemRef.setValue(groceryItem.toAnyObject())
     }
     
     let cancelAction = UIAlertAction(title: "Cancel",
