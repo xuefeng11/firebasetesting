@@ -31,11 +31,22 @@ class GroceryListTableViewController: UITableViewController {
   var items: [GroceryItem] = []
   var user: User!
   var userCountBarButtonItem: UIBarButtonItem!
-  
+  let usersRef = FIRDatabase.database().reference(withPath: "online")
   // MARK: UIViewController Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    FIRAuth.auth()!.addStateDidChangeListener { auth, user in
+      guard let user = user else { return }
+      self.user = User(authData: user)
+      // 1
+      let currentUserRef = self.usersRef.child(self.user.uid)
+      // 2
+      currentUserRef.setValue(self.user.email)
+      // 3
+      currentUserRef.onDisconnectRemoveValue()
+    }
     // 1
     ref.observe(.value, with: { snapshot in
       // 2
